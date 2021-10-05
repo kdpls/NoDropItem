@@ -1,0 +1,12 @@
+---
+name: NoDropItem
+author: Kygekraqmak
+version: 1.0.0
+api: 3.0.0
+main: Kygekraqmak\NoDropItem\NoDropItem
+
+permissions:
+  nodropitem.bypass:
+    description: Bypasses NoDropItem plugin check
+    default: op
+...

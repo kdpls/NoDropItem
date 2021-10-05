@@ -1,0 +1,16 @@
+---
+# NoDropItem Plugin
+# Made by Kygekraqmak
+
+# World modes
+# all = Prevents players from dropping items in all worlds
+# blacklist = Prevents players from dropping items in worlds listed below
+# whitelist = Prevents players from dropping items in all worlds that are not listed below
+# If not specified, will prevent players from dropping items in all worlds
+world-mode: "all"
+worlds-list: []
+
+# Message that will be send to players when they can't drop items
+# Use "&" as formatting codes
+warning: "&cYou cannot drop items here!"
+...
