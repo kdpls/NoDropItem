@@ -12,7 +12,7 @@ class NoDropItem extends PluginBase implements Listener {
 
     public $config;
 
-    public function onEnable() {
+    protected function onEnable() : void {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveDefaultConfig();
         $this->config = $this->getConfig();
@@ -23,23 +23,19 @@ class NoDropItem extends PluginBase implements Listener {
         if ($player->hasPermission("nodropitem.bypass")) return;
         switch ($this->config->get("world-mode")) {
             case "blacklist":
-                foreach ($this->config->get("worlds-list") as $world) {
-                    if ($player->getLevel()->getName() === $world) {
-                        $event->setCancelled();
-                        $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
-                    }
+                if (in_array($player->getWorld()->getDisplayName(), $this->config->get("worlds-list"))){
+                    $event->cancel();
+                    $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
                 }
                 break;
             case "whitelist":
-                foreach ($this->config->get("worlds-list") as $world) {
-                    if ($player->getLevel()->getName() !== $world) {
-                        $event->setCancelled();
-                        $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
-                    }
+                if (!in_array($player->getWorld()->getDisplayName(), $this->config->get("worlds-list"))){
+                    $event->cancel();
+                    $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
                 }
                 break;
             default:
-                $event->setCancelled();
+                $event->cancel();
                 $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
         }
     }
