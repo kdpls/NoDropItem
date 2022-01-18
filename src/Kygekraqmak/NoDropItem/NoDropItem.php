@@ -7,6 +7,7 @@ namespace Kygekraqmak\NoDropItem;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDropItemEvent;
+use pocketmine\utils\TextFormat;
 
 class NoDropItem extends PluginBase implements Listener {
 
@@ -25,18 +26,18 @@ class NoDropItem extends PluginBase implements Listener {
             case "blacklist":
                 if (in_array($player->getWorld()->getDisplayName(), $this->config->get("worlds-list"))){
                     $event->cancel();
-                    $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
+                    $player->sendMessage(TextFormat::colorize($this->config->get("warning")));
                 }
                 break;
             case "whitelist":
                 if (!in_array($player->getWorld()->getDisplayName(), $this->config->get("worlds-list"))){
                     $event->cancel();
-                    $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
+                    $player->sendMessage(TextFormat::colorize($this->config->get("warning")));
                 }
                 break;
             default:
                 $event->cancel();
-                $player->sendMessage(str_replace("&", "§", $this->config->get("warning")));
+                $player->sendMessage(TextFormat::colorize($this->config->get("warning")));
         }
     }
 
